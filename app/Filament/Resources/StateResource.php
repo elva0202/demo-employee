@@ -26,6 +26,9 @@ class StateResource extends Resource
     //設置歸屬折疊分類
     protected static ?string $navigationGroup = 'System Management';
 
+    //設置排序
+    protected static ?int $navigationSort = 2;
+
     public static function form(Form $form): Form
     {
         return $form

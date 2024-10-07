@@ -24,6 +24,10 @@ class CityResource extends Resource
     protected static ?string $modelLabel = 'City';
     //設置歸屬折疊分類
     protected static ?string $navigationGroup = 'System Management';
+
+    ///設置排序
+    protected static ?int $navigationSort = 3;
+
     public static function form(Form $form): Form
     {
         return $form

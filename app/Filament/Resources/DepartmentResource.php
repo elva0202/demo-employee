@@ -24,6 +24,10 @@ class DepartmentResource extends Resource
     protected static ?string $modelLabel = 'Department';
     //設置歸屬折疊分類
     protected static ?string $navigationGroup = 'System Management';
+
+    //設置排序
+    protected static ?int $navigationSort = 4;
+
     public static function form(Form $form): Form
     {
         return $form
