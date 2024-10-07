@@ -18,7 +18,7 @@ class StateResource extends Resource
     protected static ?string $model = State::class;
 
     //設置圖標（ICON)，$navigationIcon字串類型，通常用於指定圖標
-    protected static ?string $navigationIcon = 'heroicon-o-flag';
+    protected static ?string $navigationIcon = 'heroicon-o-building-library';
     //設置分類名稱為且為字串，？代表可以是null
     protected static ?string $navigationLabel = 'State';
     //設置模型名稱為員工國家且為字串，？代表可以是null
