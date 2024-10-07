@@ -16,13 +16,13 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class CityResource extends Resource
 {
     protected static ?string $model = City::class;
-
+    //設置圖標（ICON)，$navigationIcon字串類型，通常用於指定圖標
     protected static ?string $navigationIcon = 'heroicon-o-flag';
-
+    //設置分類名稱為且為字串，？代表可以是null
     protected static ?string $navigationLabel = 'City';
-
+    //設置模型名稱為員工國家且為字串，？代表可以是null
     protected static ?string $modelLabel = 'City';
-
+    //設置歸屬折疊分類
     protected static ?string $navigationGroup = 'System Management';
     public static function form(Form $form): Form
     {
