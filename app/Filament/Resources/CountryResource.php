@@ -17,12 +17,17 @@ class CountryResource extends Resource
 {
     protected static ?string $model = Country::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    //更改ICON
+    protected static ?string $navigationIcon = 'heroicon-o-flag';
 
-    //靜態方法接收Form類型參數與回傳Form物件，定義表單結構與欄位
+    protected static ?string $navigationLabel = 'Country';
+
+    protected static ?string $modelLabel = 'Employees Country';
+
+    protected static ?string $navigationGroup = 'System Management';
+
     public static function form(Form $form): Form
     {
-        //定義表單欄位配置可使用陣列做為參數
         return $form
             ->schema([
                 //
