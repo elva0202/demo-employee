@@ -31,14 +31,23 @@ class StateResource extends Resource
 
     public static function form(Form $form): Form
     {
+        $countries = \App\Models\Country::all();
+
         return $form
             ->schema([
                 //生成輸入匡對應country_id欄位(國家_id)
-                Forms\Components\TextInput::make('country_id')
-                    //必填
-                    ->required()
-                    //數字
-                    ->numeric(),
+                Forms\Components\Select::make('country_id')
+                    ->relationship('country', 'name')  //關聯到country，使用name欄位作為標題
+                    ->searchable()  //添加搜尋功能
+                    ->preload()     //預載入選項（提前加載國家名）
+                    ->required(),   //必填欄位
+                // Forms\Components\Select::make('status')
+                //     ->options([
+                //         'active'=> 'Active',
+                //         'inactive'=> 'Inactive',
+                //     ])
+
+
 
                 Forms\Components\TextInput::make('name')
                     //必填
@@ -52,7 +61,21 @@ class StateResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('country.name')
+                    ->numeric()
+                    ->searchable(isIndividual: true),
+                Tables\Columns\TextColumn::make('name')
+                    ->label('State name')
+                    ->sortable()
+                    ->searchable(isIndividual: true),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //

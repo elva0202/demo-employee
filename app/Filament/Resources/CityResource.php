@@ -4,14 +4,19 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CityResource\Pages;
 use App\Filament\Resources\CityResource\RelationManagers;
+use App\Filament\Resources\CityResource\RelationManagers\EmployeesRelationManager;
 use App\Models\City;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\Section;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+
 
 class CityResource extends Resource
 {
@@ -32,17 +37,21 @@ class CityResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\Section::make('City details')
+                    ->schema([
+                        Forms\Components\Select::make('state_id')
+                            ->relationship(name: 'state', titleAttribute: 'name')    //關聯到country，使用name欄位作為標題
+                            ->searchable()  //添加搜尋功能
+                            ->preload()     //預載入選項（提前加載國家名）
+                            ->required(),   //必填
+                        Forms\Components\TextInput::make('name')
+                            //必填
+                            ->required()
+                            //最大長度
+                            ->maxLength(255),
+                    ])
                 //生成輸入匡對應狀態id
-                Forms\Components\TextInput::make('state_id')
-                    //必填
-                    ->required()
-                    //數字
-                    ->numeric(),
-                Forms\Components\TextInput::make('name')
-                    //必填
-                    ->required()
-                    //最大長度
-                    ->maxLength(255),
+
             ]);
     }
 
@@ -50,7 +59,20 @@ class CityResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('state.name')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('name')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
             ])
             ->filters([
                 //
@@ -63,13 +85,27 @@ class CityResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
+            ])
+            ->emptyStateActions([
+                Tables\Actions\CreateAction::make(),
             ]);
     }
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                Section::make('City Info')
+                    ->schema([
+                        TextEntry::make('state.name')->label('State Name'),
+                        TextEntry::make('name')->label('City name'),
+                    ])->columns(2)
+            ]);
+    }
+
 
     public static function getRelations(): array
     {
         return [
-            //
         ];
     }
 
