@@ -12,6 +12,7 @@ return new class extends Migration {
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('team_id')->constrained()->cascadeOnDelete();
             $table->foreignId('country_id')->constrained()->cascadeOnDelete();
             $table->foreignId('state_id')->constrained()->cascadeOnDelete();
             $table->foreignId('city_id')->constrained()->cascadeOnDelete();
@@ -22,7 +23,7 @@ return new class extends Migration {
             $table->string('address');      //地址 字串
             $table->char('zip_code');       //郵遞區號 長字元欄位
             $table->date('date_of_birth');  //生日 日期
-            $table->date('date_hierd');     //雇用日期 日期
+            $table->date('date_hired');     //雇用日期 日期
             $table->timestamps();                   //自動生成兩個時間戳欄位（創建/更新）
         });
     }

@@ -21,6 +21,16 @@ class UserResource extends Resource
 
     protected static ?string $navigationGroup = 'User Management';
 
+    public static function getNavigationBadge(): ?string
+    {   //顯示總數
+        return static::getModel()::count();
+    }
+
+    public static function getNavigationBadgeColor(): string|array|null
+    {   
+        return static::getModel()::count() > 10 ? 'warning' : 'success';
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -46,7 +56,8 @@ class UserResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email_verified_at')

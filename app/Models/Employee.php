@@ -28,4 +28,9 @@ class Employee extends Model
     {
         return $this->belongsTo(City::class);
     }
+    public function team()
+    {
+        return $this->belongsTo(Team::class);
+
+    }
 }

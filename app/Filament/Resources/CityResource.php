@@ -50,8 +50,6 @@ class CityResource extends Resource
                             //最大長度
                             ->maxLength(255),
                     ])
-                //生成輸入匡對應狀態id
-
             ]);
     }
 
@@ -106,6 +104,8 @@ class CityResource extends Resource
     public static function getRelations(): array
     {
         return [
+            EmployeesRelationManager::class,
+
         ];
     }
 
@@ -116,6 +116,6 @@ class CityResource extends Resource
             'create' => Pages\CreateCity::route('/create'),
             'view' => Pages\ViewCity::route('/{record}'),
             'edit' => Pages\EditCity::route('/{record}/edit'),
-        ];
+        ];path: 
     }
 }

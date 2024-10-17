@@ -7,6 +7,9 @@ use App\Filament\Resources\DepartmentResource\RelationManagers;
 use App\Models\Department;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\Section;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -28,6 +31,16 @@ class DepartmentResource extends Resource
     //設置排序
     protected static ?int $navigationSort = 4;
 
+    public static function getNavigationBadge(): ?string
+    {   //顯示總數
+        return static::getModel()::count();
+    }
+
+    public static function getNavigationBadgeColor(): string|array|null
+    {   //超過10則跳警告，
+        return static::getModel()::count() > 10 ? 'warning' : 'success';
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -42,7 +55,19 @@ class DepartmentResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('name')
+                    ->searchable()
+                    ->sortable(),//用於排序（升序/降序)
+                Tables\Columns\TextColumn::make('employees_count')->counts('employees')
+                    ->sortable(),//用於排序（升序/降序)
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()//用於排序（升序/降序)
+                    ->toggleable(isToggledHiddenByDefault: true),//切換顯示或隱藏欄位
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()//用於排序（升序/降序)
+                    ->toggleable(isToggledHiddenByDefault: true),//切換顯示或隱藏欄位
             ])
             ->filters([
                 //
@@ -55,6 +80,24 @@ class DepartmentResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
+            ])
+            ->emptyStateActions([
+                Tables\Actions\CreateAction::make(),
+            ]);
+    }
+
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                Section::make('Department Info')
+                    ->schema([
+                        TextEntry::make('name'),
+                        TextEntry::make('employees_count')
+                            ->state(function (Department $record): int {
+                                return $record->employees()->count();
+                            }),
+                    ])->columns(2)
             ]);
     }
 
@@ -70,7 +113,7 @@ class DepartmentResource extends Resource
         return [
             'index' => Pages\ListDepartments::route('/'),
             'create' => Pages\CreateDepartment::route('/create'),
-            'view' => Pages\ViewDepartment::route('/{record}'),
+            //'view' => Pages\ViewDepartment::route('/{record}'),
             'edit' => Pages\EditDepartment::route('/{record}/edit'),
         ];
     }

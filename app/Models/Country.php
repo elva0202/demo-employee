@@ -5,9 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class Country extends Model
 {
     use HasFactory;
-    protected $fillable = ['first_name', 'last_name', 'middle_name', 'address', 'zip_code', 'date_of_birth', 'date_hired'];
+    protected $fillable = [
+        'name',
+        'code',
+        'phonecode'
+    ];
 
+    public function states():HasMany
+    {
+        return $this->hasMany(State::class);
+    }
+    public function employees(): HasMany
+    {
+        return $this->hasMany(Employee::class);
+    }
 }
