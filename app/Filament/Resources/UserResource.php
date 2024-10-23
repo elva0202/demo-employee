@@ -27,7 +27,7 @@ class UserResource extends Resource
     }
 
     public static function getNavigationBadgeColor(): string|array|null
-    {   
+    {
         return static::getModel()::count() > 10 ? 'warning' : 'success';
     }
 
@@ -96,9 +96,13 @@ class UserResource extends Resource
     public static function getPages(): array
     {
         return [
+            //列出使用者頁面
             'index' => Pages\ListUsers::route('/'),
+            //建立使用者頁面
             'create' => Pages\CreateUser::route('/create'),
+            //查看使用者介面
             'view' => Pages\ViewUser::route('/{record}'),
+            //編輯使用者頁面
             'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
     }

@@ -190,7 +190,7 @@ class EmployeeResource extends Resource
                     ->date()//格式化日期
                     ->sortable()//用於排序（升序/降序)
                     ->toggleable(isToggledHiddenByDefault: true),//切換顯示或隱藏欄位
-                Tables\Columns\TextColumn::make('date_hierd')
+                Tables\Columns\TextColumn::make('date_hired')
                     ->date()//格式化日期
                     ->sortable(),//用於排序（升序/降序)
                 Tables\Columns\TextColumn::make('created_at')
@@ -206,7 +206,7 @@ class EmployeeResource extends Resource
             //定義篩選器
             ->filters([
                 SelectFilter::make('Department')//篩選器名稱
-                    ->relationship('department','name')//設定department關聯顯示name欄位
+                    ->relationship('department', 'name')//設定department關聯顯示name欄位
                     ->searchable()//添加查詢功能
                     ->preload()//預先加載篩選選項
                     ->label('Filter by Department')//自定義篩選器標籤名稱
@@ -220,11 +220,11 @@ class EmployeeResource extends Resource
                         return $query
                             ->when(
                                 $data['created_from'],
-                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
+                                fn(Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
                             )
                             ->when(
                                 $data['created_until'],
-                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
+                                fn(Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
                             );
                     })
                     ->indicateUsing(function (array $data): array {
@@ -237,8 +237,8 @@ class EmployeeResource extends Resource
                         }
 
                         return $indicators;
-                    }),    
-                ])
+                    }),
+            ])
 
             //定義操作按鈕
             ->actions([
@@ -294,7 +294,7 @@ class EmployeeResource extends Resource
     public static function getRelations(): array
     {
         return [
-            
+
         ];
     }
 

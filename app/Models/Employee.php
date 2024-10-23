@@ -8,6 +8,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Employee extends Model
 {
+    public static function getAllEmployees()
+    {
+        $employees = self::all();
+        //dd($employees);  // 這裡會輸出所有員工數據並終止後續執行
+        return $employees;
+    }
+
     use HasFactory;
 
     protected $guarded = [];
@@ -16,19 +23,19 @@ class Employee extends Model
         return $this->belongsTo(Department::class);
     }
 
-    public function country()
+    public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class);
     }
-    public function state()
+    public function state(): BelongsTo
     {
         return $this->belongsTo(State::class);
     }
-    public function city()
+    public function city(): BelongsTo
     {
         return $this->belongsTo(City::class);
     }
-    public function team()
+    public function team(): BelongsTo
     {
         return $this->belongsTo(Team::class);
 
