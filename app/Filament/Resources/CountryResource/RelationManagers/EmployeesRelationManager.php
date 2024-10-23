@@ -68,34 +68,34 @@ class EmployeesRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('first_name')
             ->columns([
-                TTables\Columns\TextColumn::make('first_name')
-                ->searchable()//可查詢
-                ->sortable(),//用於排序（升序/降序)
-            Tables\Columns\TextColumn::make('last_name')
-                ->searchable(),//可查詢
-            Tables\Columns\TextColumn::make('middle_name')
-                ->searchable()//可查詢
-                ->toggleable(isToggledHiddenByDefault: true),//切換顯示或隱藏欄位
-            Tables\Columns\TextColumn::make('address')
-                ->searchable()//可查詢
-                ->toggleable(isToggledHiddenByDefault: true),//切換顯示或隱藏欄位
-            Tables\Columns\TextColumn::make('zip_code')
-                ->searchable(),//可查詢
-            Tables\Columns\TextColumn::make('date_of_birth')
-                ->date()//格式化日期
-                ->sortable()//用於排序（升序/降序)
-                ->toggleable(isToggledHiddenByDefault: true),//切換顯示或隱藏欄位
-            Tables\Columns\TextColumn::make('date_hierd')
-                ->date()//格式化日期
-                ->sortable(),//用於排序（升序/降序)
-            Tables\Columns\TextColumn::make('created_at')
-                ->dateTime()//格式化日期與時間
-                ->sortable()//用於排序（升序/降序)
-                ->toggleable(isToggledHiddenByDefault: true),//切換顯示或隱藏欄位
-            Tables\Columns\TextColumn::make('updated_at')
-                ->dateTime()//格式化日期與時間
-                ->sortable()//用於排序（升序/降序)
-                ->toggleable(isToggledHiddenByDefault: true),//切換顯示或隱藏欄位
+                Tables\Columns\TextColumn::make('first_name')
+                    ->searchable()//可查詢
+                    ->sortable(),//用於排序（升序/降序)
+                Tables\Columns\TextColumn::make('last_name')
+                    ->searchable(),//可查詢
+                Tables\Columns\TextColumn::make('middle_name')
+                    ->searchable()//可查詢
+                    ->toggleable(isToggledHiddenByDefault: true),//切換顯示或隱藏欄位
+                Tables\Columns\TextColumn::make('address')
+                    ->searchable()//可查詢
+                    ->toggleable(isToggledHiddenByDefault: true),//切換顯示或隱藏欄位
+                Tables\Columns\TextColumn::make('zip_code')
+                    ->searchable(),//可查詢
+                Tables\Columns\TextColumn::make('date_of_birth')
+                    ->date()//格式化日期
+                    ->sortable()//用於排序（升序/降序)
+                    ->toggleable(isToggledHiddenByDefault: true),//切換顯示或隱藏欄位
+                Tables\Columns\TextColumn::make('date_hired')
+                    ->date()//格式化日期
+                    ->sortable(),//用於排序（升序/降序)
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()//格式化日期與時間
+                    ->sortable()//用於排序（升序/降序)
+                    ->toggleable(isToggledHiddenByDefault: true),//切換顯示或隱藏欄位
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()//格式化日期與時間
+                    ->sortable()//用於排序（升序/降序)
+                    ->toggleable(isToggledHiddenByDefault: true),//切換顯示或隱藏欄位
             ])
             ->filters([
                 //
@@ -112,8 +112,8 @@ class EmployeesRelationManager extends RelationManager
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ])->emptyStateActions([
-                Tables\Actions\CreateAction::make(),
-            ]);
-            ;
+                    Tables\Actions\CreateAction::make(),
+                ]);
+        ;
     }
 }
