@@ -16,9 +16,9 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
-
+    //導航中圖標
     protected static ?string $navigationIcon = 'heroicon-o-users';
-
+    //分組
     protected static ?string $navigationGroup = 'User Management';
 
     public static function getNavigationBadge(): ?string

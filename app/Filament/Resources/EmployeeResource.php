@@ -265,7 +265,7 @@ class EmployeeResource extends Resource
                 ]),
             ]);
     }
-
+    //顯示查看資料
     public static function infolist(Infolist $infolist): Infolist
     {
         return $infolist
